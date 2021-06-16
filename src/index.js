@@ -4,6 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// This is needed by bootsrtap
+import 'bootstrap/dist/css/bootstrap.css';
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

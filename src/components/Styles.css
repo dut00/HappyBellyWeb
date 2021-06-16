@@ -1,0 +1,15 @@
+.grayed-out{
+    color: transparent;  
+    text-shadow: 0 0 0 #c7c7c7;
+}
+
+.yellow-shadow{
+    color: transparent;  
+    text-shadow: 0 0 0 #b88700;
+}
+
+.red-shadow{
+    color: transparent;  
+    text-shadow: 0 0 0 #d80314;
+}
+
