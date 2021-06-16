@@ -21,9 +21,6 @@ function App() {
         <Row>
           <Col>
             <MenuWrapper />
-              <div style={{position: "sticky", bottom: 20}}>
-  XDDDDDDDDDDDDDDDDDDD
-              </div>
           </Col>
         </Row>
         <Row>

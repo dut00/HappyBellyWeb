@@ -60,7 +60,7 @@ const MenuDish = ( props ) => {
                 <p className="text-primary font-weight-bold mb-0">{props.price.toFixed(2)} zł</p>
               </Card.Text>
             </Col>
-            <Col xs={1} className="p-0">
+            <Col xs={2} md={1} className="p-0">
               <div class="d-flex flex-column">
                 {addButton}
                 {removeButton}

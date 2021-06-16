@@ -40,7 +40,6 @@ const MenuList = (props) => {
     <div>
       <ul className="list-unstyled">
         {list}
-        <li>totalCost: {props.totalCost}</li>
       </ul>
     </div>
   );

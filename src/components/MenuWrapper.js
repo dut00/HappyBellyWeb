@@ -10,12 +10,12 @@ const MenuWrapper = (props) => {
   const [totalCost, setTotalCost] = useState(0);
 
   return (
-    <div>
+    <div id="aaaaa">
       <RestaurantHeader name="McDonald's" cuisine="Amercian" />
       <MenuCategoryNav />
       <MenuList totalCost={totalCost} setTotalCost={setTotalCost}/>
-      <ShopCartButton totalCost={totalCost}/>
-      {props.children}
+      <ShopCartButton className="shopcart-btn" totalCost={totalCost}/>
+      {/* {props.children} */}
     </div>
   );
 }
