@@ -9,9 +9,9 @@ import { ButtonGroup } from 'react-bootstrap';
 import { ToggleButton } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 
-import './Styles.css';
+import '../Styles.css';
 
-const ShopCard = (props) => {
+const ShopCardButton = (props) => {
   const [count, setCount] = useState(0);
   const [totalPrice, setTotalPrice] = useState("35,90");
   // const [totalPrice, setTotalPrice] = useState("");
@@ -106,4 +106,4 @@ const ShopCard = (props) => {
   );
 }
 
-export default ShopCard;
+export default ShopCardButton;

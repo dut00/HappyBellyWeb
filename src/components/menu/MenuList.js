@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-// import { MenuDish } from 'react-bootstrap';
-import MenuDish from '../components/MenuDish';
-import ShopCart from '../components/ShopCart';
+import MenuDish from './MenuDish';
 
 import { LoremIpsum, Avatar } from "react-lorem-ipsum";
 
 
 const MenuList = (props) => {
-
   const [description, setDescription] = useState();
-  const [totalCost, setTotalCost] = useState(0);
 
   const dishes = [
     ["Zestaw BigMac", 20.50],
@@ -27,8 +23,8 @@ const MenuList = (props) => {
         name={dish[0]}
         price={dish[1]}
         description={description}
-        totalCost={totalCost}
-        setTotalCost={setTotalCost} />
+        totalCost={props.totalCost}
+        setTotalCost={props.setTotalCost} />
     </li>
   });
 
@@ -44,7 +40,7 @@ const MenuList = (props) => {
     <div>
       <ul className="list-unstyled">
         {list}
-        <li>totalCost: {totalCost}</li>
+        <li>totalCost: {props.totalCost}</li>
       </ul>
     </div>
   );

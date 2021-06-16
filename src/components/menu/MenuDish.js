@@ -5,7 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-import './Styles.css';
+import '../Styles.css';
 
 const MenuDish = ( props ) => {
   const [count, setCount] = useState(0);
