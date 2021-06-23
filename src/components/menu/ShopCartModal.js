@@ -4,17 +4,20 @@ import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import { ButtonGroup } from 'react-bootstrap';
 import { ToggleButton } from 'react-bootstrap';
+import { ToggleButtonGroup } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
+import { DropdownButton } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 
 import '../Styles.css';
 
 
 const ShopCartModal = (props) => {
     const [paymentMethodRadioValue, setPaymentMethodRadioValue] = useState('1');
-    const paymentMethod = [
-      { name: 'Blik', value: '1' },
-      { name: 'Gotówka', value: '2' },
-      { name: 'Karta kredytowa', value: '3' },
+    const paymentMethods = [
+      { name: 'Blik', value: '1', status: '' },
+      { name: 'Gotówka', value: '2', status: '' },
+      { name: 'Karta kredytowa', value: '3', status: 'disabled'},
     ];
 
 
@@ -37,11 +40,23 @@ const ShopCartModal = (props) => {
           <p>1x Ketchup  0,90 zł</p>
           <p><strong>Kwota całkowita: {props.totalCost.toFixed(2)} zł</strong></p>
           
-          <p>Delivery addres: 80-404 Gdańsk, Mikołaja Reja 99/9</p>
-          <p>Delivery time: ASAP</p>
+          <p>Delivery addres: {props.address}</p>
+          <div>Delivery time: &nbsp;
+            <DropdownButton id="dropdown-basic-button" title="Dropdown button">
+              <Dropdown.Item href="#/action-1">As soon as possible</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item href="#/action-2">1:00</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">1:30</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">2:00</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">2:30</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">3:00</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">3:30</Dropdown.Item>
+            </DropdownButton>
+          </div>
+
           <p>Payment method: &nbsp;
             <ButtonGroup toggle>
-              {paymentMethod.map((radio, idx) => (
+              {paymentMethods.map((radio, idx) => (
                 <ToggleButton
                   key={idx}
                   type="radio"

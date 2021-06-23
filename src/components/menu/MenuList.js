@@ -8,20 +8,11 @@ import { LoremIpsum, Avatar } from "react-lorem-ipsum";
 const MenuList = (props) => {
   const [description, setDescription] = useState();
 
-  const dishes = [
-    ["Zestaw BigMac", 20.50],
-    ["WieśMac", 15.50],
-    ["Frytki", 6.50],
-    ["Coca Cola", 5.90],
-    ["Shake Waniliowy", 7.90],
-    ["Ketchup", 0.90]
-  ];
-
-  var list = dishes.map((dish, idx) => {
+  var list = props.dishes.map((dish, idx) => {
     return <li key={idx}>
       <MenuDish
-        name={dish[0]}
-        price={dish[1]}
+        name={dish.name}
+        price={dish.price}
         description={description}
         totalCost={props.totalCost}
         setTotalCost={props.setTotalCost} />
@@ -37,11 +28,9 @@ const MenuList = (props) => {
   }, []);
 
   return (
-    <div>
       <ul className="list-unstyled">
         {list}
       </ul>
-    </div>
   );
 }
 
