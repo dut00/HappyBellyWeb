@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, forceUpdate } from "react";
+
+import { Button } from 'react-bootstrap';
 
 import RestaurantHeader from './menu/RestaurantHeader';
 import MenuCategoryNav from './menu/MenuCategoryNav';
@@ -11,31 +13,55 @@ const MenuWrapper = (props) => {
   const [modalShow, setModalShow] = React.useState(false);
 
   const [totalCost, setTotalCost] = useState(0);
-  const [address, setAddress] = useState("80-404 Gdańsk, Mikołaja Reja 99/9");
+  const [address, setAddress] = useState("80-404 Gdańsk, Mikołaja Reja 66/6");
   const [deliveryTime, setDeliveryTime] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState(0);
-  const [order, setOrder] = useState(0);
+  const [dishes, setDishes] = useState([
+    {id: 1, name: "Zestaw BigMac", price: 20.50, amount: 0},
+    {id: 2, name: "WieśMac", price: 15.50, amount: 0},
+    {id: 3, name: "Frytki", price: 6.50, amount: 0},
+    {id: 4, name: "Coca Cola", price: 5.90, amount: 0},
+    {id: 5, name: "McFlary", price: 8.90, amount: 0},
+    {id: 6, name: "Shake Waniliowy", price: 7.90, amount: 0},
+    {id: 7, name: "Ketchup", price: 0.90, amount: 0},
+  ]);
 
-  const order2 = {id: 2, amount: 2};
+  const addDish = (id) => {
+    var indexOfDish = dishes.findIndex(e => e.id === id);
+    dishes[indexOfDish].amount++;
+    // ugly WA - DOM doesn't rerender because the reference of array doesn't change 
+    setDishes(Array.from(dishes));
+    countTotalCost();
+  };
 
-  const dishes = [
-    {id: 1, name: "Zestaw BigMac", price: 20.50},
-    {id: 2, name: "WieśMac", price: 15.50},
-    {id: 3, name: "Frytki", price: 6.50},
-    {id: 4, name: "Coca Cola", price: 5.90},
-    {id: 5, name: "McFlary", price: 8.90},
-    {id: 6, name: "Shake Waniliowy", price: 7.90},
-    {id: 7, name: "Ketchup", price: 0.90},
-  ];
+  const removeDish = (id) => {
+    var indexOfDish = dishes.findIndex(e => e.id === id);
+    dishes[indexOfDish].amount--;
+    // ugly WA - DOM doesn't rerender because the reference of array doesn't change
+    setDishes(Array.from(dishes));
+    countTotalCost();
+  };
+
+  const countTotalCost = () => {
+    var totalCost = 0;
+    dishes.forEach(e => {
+      totalCost += e.amount * e.price;
+    });
+    setTotalCost(totalCost);
+  };
 
   return (
     <div id="aaaaa">
+      <Button onClick={() => addDish(1)}>addDish(1)</Button>
+      <Button onClick={() => removeDish(1)}>removeDish(1)</Button>
+      {dishes[0].amount}
+
       <RestaurantHeader name="McDonald's" cuisine="Amercian" />
       <MenuCategoryNav />
       <MenuList
         dishes={dishes}
-        totalCost={totalCost}
-        setTotalCost={setTotalCost}
+        addDish={addDish}
+        removeDish={removeDish}
       />
 
       <ShopCartButton
@@ -45,6 +71,7 @@ const MenuWrapper = (props) => {
       />
 
       <ShopCartModal
+        dishes={dishes}
         address={address}
         totalCost={totalCost}
         show={modalShow}

@@ -8,12 +8,10 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import '../Styles.css';
 
 const MenuDish = ( props ) => {
-  const [count, setCount] = useState(0);
-
   const plus = <span className="yellow-shadow">➕</span>;
   const minus = <span className="red-shadow">➖</span>;
 
-  const orderingButton = (buttonVariant, buttonContent, tooltipPlacement, tooltipContent, increment) => {
+  const orderingButton = (buttonVariant, buttonContent, tooltipPlacement, tooltipContent, addDish) => {
     return (
       <OverlayTrigger
       key={"tt-" + buttonVariant}
@@ -21,12 +19,12 @@ const MenuDish = ( props ) => {
       overlay={<Tooltip id={"tooltip-" + tooltipPlacement}>{tooltipContent}</Tooltip>}>
         <Button
         onClick={() => {
-          setCount(count + increment);
-          var total = props.totalCost + increment * props.price;
-          var roundedTotal = (Math.round(total * 100) / 100);
-          props.setTotalCost(roundedTotal);
+          if(addDish === true) {
+            props.addDish(props.id);
+          } else {
+            props.removeDish(props.id);
+          }
         }}
-          
         variant={buttonVariant}
         size="sm"
         className="font-weight-bold"
@@ -36,16 +34,12 @@ const MenuDish = ( props ) => {
       </OverlayTrigger>
   )}
 
-  useEffect(() => {
-    
-  }, []);
-
-  if (count === 0) {
-    var addButton = orderingButton("outline-warning", plus, "top", "Click to add the product.", 1);
+  if (props.amount === 0) {
+    var addButton = orderingButton("outline-warning", plus, "top", "Click to add the product.", true);
     var removeButton = "";
   } else {
-    var addButton = orderingButton("warning", count, "top", "Click to add the product.", 1);
-    var removeButton = orderingButton("outline-danger", minus, "bottom", "Click to remove the product.", -1);
+    var addButton = orderingButton("warning", props.amount, "top", "Click to add the product.", true);
+    var removeButton = orderingButton("outline-danger", minus, "bottom", "Click to remove the product.", false);
   }
 
   return (

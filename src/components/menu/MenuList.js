@@ -11,11 +11,15 @@ const MenuList = (props) => {
   var list = props.dishes.map((dish, idx) => {
     return <li key={idx}>
       <MenuDish
+        id={dish.id}
         name={dish.name}
         price={dish.price}
-        description={description}
-        totalCost={props.totalCost}
-        setTotalCost={props.setTotalCost} />
+        amount={dish.amount}
+
+        addDish={props.addDish}
+        removeDish={props.removeDish}
+
+        description={description} />
     </li>
   });
 

@@ -34,10 +34,14 @@ const ShopCartModal = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Summary</h4>
-          <p>2x BigMac  41,00 zł</p>
-          <p>2x Frytki  13,00 zł</p>
-          <p>1x Ketchup  0,90 zł</p>
+          <ul>
+            {
+              props.dishes.filter(dish => dish.amount > 0).map(dish => {
+                return <li>{dish.amount}x {dish.name} {(dish.amount * dish.price).toFixed(2)} zł</li>
+              })
+            }
+          </ul>
+
           <p><strong>Kwota całkowita: {props.totalCost.toFixed(2)} zł</strong></p>
           
           <p>Delivery addres: {props.address}</p>
