@@ -42,11 +42,11 @@ const ShopCartModal = (props) => {
             }
           </ul>
 
-          <p><strong>Kwota całkowita: {props.totalCost.toFixed(2)} zł</strong></p>
+          <p><strong>Total cost: {props.totalCost.toFixed(2)} zł</strong></p>
           
-          <p>Delivery addres: {props.address}</p>
+          <p>Delivery addres: <strong>{props.address}</strong></p>
           <div>Delivery time: &nbsp;
-            <DropdownButton id="dropdown-basic-button" title="Dropdown button">
+            <DropdownButton id="dropdown-basic-button" className="d-inline-block" title="Dropdown button">
               <Dropdown.Item href="#/action-1">As soon as possible</Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item href="#/action-2">1:00</Dropdown.Item>
@@ -76,7 +76,7 @@ const ShopCartModal = (props) => {
             </ButtonGroup>
           </p>
           <p>
-          <Form.Control placeholder="Dodatkowe uwagi" />
+          <Form.Control placeholder="Order notes" />
           </p>
         </Modal.Body>
         <Modal.Footer>

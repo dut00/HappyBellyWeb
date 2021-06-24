@@ -52,10 +52,6 @@ const MenuWrapper = (props) => {
 
   return (
     <div id="aaaaa">
-      <Button onClick={() => addDish(1)}>addDish(1)</Button>
-      <Button onClick={() => removeDish(1)}>removeDish(1)</Button>
-      {dishes[0].amount}
-
       <RestaurantHeader name="McDonald's" cuisine="Amercian" />
       <MenuCategoryNav />
       <MenuList
