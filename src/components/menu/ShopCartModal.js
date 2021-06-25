@@ -8,6 +8,7 @@ import { ToggleButtonGroup } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import { DropdownButton } from 'react-bootstrap';
 import { Dropdown } from 'react-bootstrap';
+import { Container, Row, Col} from 'react-bootstrap';
 
 import '../Styles.css';
 
@@ -34,17 +35,31 @@ const ShopCartModal = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+
+
+
           <ul>
-            {
-              props.dishes.filter(dish => dish.amount > 0).map(dish => {
+            {props.dishes.filter(dish => dish.amount > 0).map(dish => {
                 return <li>{dish.amount}x {dish.name} {(dish.amount * dish.price).toFixed(2)} zł</li>
-              })
-            }
+              })}
           </ul>
 
           <p><strong>Total cost: {props.totalCost.toFixed(2)} zł</strong></p>
           
-          <p>Delivery addres: <strong>{props.address}</strong></p>
+          <Container className="show-grid">
+          <Row>
+            <Col sm={4}>
+              <p>Delivery addres:</p>
+            </Col>
+            <Col sm={8}>
+              <Button>{props.address}</Button>
+            </Col>
+          </Row>
+        </Container>
+
+          <div>Delivery addres:
+          <Button>{props.address}</Button>
+          </div>
           <div>Delivery time: &nbsp;
             <DropdownButton id="dropdown-basic-button" className="d-inline-block" title="Dropdown button">
               <Dropdown.Item href="#/action-1">As soon as possible</Dropdown.Item>
