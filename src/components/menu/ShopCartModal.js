@@ -35,64 +35,83 @@ const ShopCartModal = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <Container>
+            <Row>
+              <table class="table table-sm table-borderless">
+                <tbody>
+                  {props.dishes.filter(dish => dish.amount > 0).map(dish => {
+                      return <tr>
+                        <td>{dish.amount}x</td>
+                        <td>{dish.name}</td>
+                        <td style={{textAlign:"right"}}>{(dish.amount * dish.price).toFixed(2)} zł</td>
+                      </tr>
+                    })}
+                  <tr style={{borderTop:"1px solid lightgray", fontWeight:"bold"}}>
+                    {/* <td colspan="2"></td> */}
+                    <td></td>
+                    <td>Total cost: </td>
+                    <td style={{textAlign:"right"}}>{props.totalCost.toFixed(2)} zł</td>
+                  </tr>
+                </tbody>
+              </table>
+            </Row>
 
+            <br />
+            
+            <Row>
+              <Col sm={4}>
+                <p>Delivery addres:</p>
+              </Col>
+              <Col sm={8}>
+                <Button>{props.address}</Button>
+              </Col>
+            </Row>
 
+            <Row>
+              <Col sm={4}>
+                <p>Delivery time:</p>
+              </Col>
+              <Col sm={8}>
+               <DropdownButton id="dropdown-basic-button" className="d-inline-block" title="Dropdown button">
+                  <Dropdown.Item href="#/action-1">As soon as possible</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item href="#/action-2">1:00</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">1:30</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">2:00</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">2:30</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">3:00</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">3:30</Dropdown.Item>
+                </DropdownButton>
+              </Col>
+            </Row>
 
-          <ul>
-            {props.dishes.filter(dish => dish.amount > 0).map(dish => {
-                return <li>{dish.amount}x {dish.name} {(dish.amount * dish.price).toFixed(2)} zł</li>
-              })}
-          </ul>
+            <Row>
+              <Col sm={4}>
+                <p>Payment method:</p>
+              </Col>
+              <Col sm={8}>
+              <ButtonGroup toggle>
+                  {paymentMethods.map((radio, idx) => (
+                    <ToggleButton
+                      key={idx}
+                      type="radio"
+                      variant={radio.value === paymentMethodRadioValue ? "primary" : "secondary"}
+                      name="radio"
+                      value={radio.value}
+                      checked={paymentMethodRadioValue === radio.value}
+                      onChange={(e) => setPaymentMethodRadioValue(e.currentTarget.value)}
+                    >
+                      {radio.name}
+                    </ToggleButton>
+                  ))}
+                </ButtonGroup>
+              </Col>
+            </Row>
 
-          <p><strong>Total cost: {props.totalCost.toFixed(2)} zł</strong></p>
-          
-          <Container className="show-grid">
-          <Row>
-            <Col sm={4}>
-              <p>Delivery addres:</p>
-            </Col>
-            <Col sm={8}>
-              <Button>{props.address}</Button>
-            </Col>
-          </Row>
-        </Container>
-
-          <div>Delivery addres:
-          <Button>{props.address}</Button>
-          </div>
-          <div>Delivery time: &nbsp;
-            <DropdownButton id="dropdown-basic-button" className="d-inline-block" title="Dropdown button">
-              <Dropdown.Item href="#/action-1">As soon as possible</Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item href="#/action-2">1:00</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">1:30</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">2:00</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">2:30</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">3:00</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">3:30</Dropdown.Item>
-            </DropdownButton>
-          </div>
-
-          <p>Payment method: &nbsp;
-            <ButtonGroup toggle>
-              {paymentMethods.map((radio, idx) => (
-                <ToggleButton
-                  key={idx}
-                  type="radio"
-                  variant={radio.value === paymentMethodRadioValue ? "primary" : "secondary"}
-                  name="radio"
-                  value={radio.value}
-                  checked={paymentMethodRadioValue === radio.value}
-                  onChange={(e) => setPaymentMethodRadioValue(e.currentTarget.value)}
-                >
-                  {radio.name}
-                </ToggleButton>
-              ))}
-            </ButtonGroup>
-          </p>
-          <p>
-          <Form.Control placeholder="Order notes" />
-          </p>
+            <Row>
+            <Form.Control placeholder="Order notes" />
+            </Row>
+          </Container>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Make order</Button>
