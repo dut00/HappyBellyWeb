@@ -14,8 +14,24 @@ const MenuWrapper = (props) => {
 
   const [totalCost, setTotalCost] = useState(0);
   const [address, setAddress] = useState("80-404 Gdańsk, Mikołaja Reja 66/6");
-  const [deliveryTime, setDeliveryTime] = useState(0);
-  const [paymentMethod, setPaymentMethod] = useState(0);
+
+  const deliveryTimeOptions = [
+    {id: 1, name: "As soon as possible"},
+    {id: 2, name: "+1:00 from now"},
+    {id: 3, name: "+1:30 from now"},
+    {id: 4, name: "+2:00 from now"},
+    {id: 5, name: "+2:30 from now"},
+    {id: 6, name: "+3:00 from now"},
+  ];
+  const [deliveryTime, setDeliveryTime] = useState(deliveryTimeOptions[0]);
+
+  const paymentMethods = [
+    { id: 1, name: 'Blik'},
+    { id: 2, name: 'Cash'},
+    { id: 3, name: 'Card payment'},
+  ];
+  const [paymentMethod, setPaymentMethod] = useState(paymentMethods[0]);
+
   const [dishes, setDishes] = useState([
     {id: 1, name: "Zestaw BigMac", price: 20.50, amount: 0},
     {id: 2, name: "WieśMac", price: 15.50, amount: 0},
@@ -71,6 +87,12 @@ const MenuWrapper = (props) => {
         address={address}
         totalCost={totalCost}
         show={modalShow}
+        paymentMethods={paymentMethods}
+        paymentMethod={paymentMethod}
+        setPaymentMethod={setPaymentMethod}
+        deliveryTimeOptions={deliveryTimeOptions}
+        deliveryTime={deliveryTime}
+        setDeliveryTime={setDeliveryTime}
         onHide={() => setModalShow(false)}
       />
 

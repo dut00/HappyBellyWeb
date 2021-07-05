@@ -17,9 +17,9 @@ import '../Styles.css';
 const ShopCartModal = (props) => {
     const [paymentMethodRadioValue, setPaymentMethodRadioValue] = useState('1');
     const paymentMethods = [
-      { name: 'Blik', value: '1', status: '' },
-      { name: 'Gotówka', value: '2', status: '' },
-      { name: 'Karta kredytowa', value: '3', status: 'disabled'},
+      { name: 'Blik', value: '1'},
+      { name: 'Cash', value: '2'},
+      { name: 'Card payment', value: '3'},
     ];
 
 
@@ -61,7 +61,6 @@ const ShopCartModal = (props) => {
 
             <Row className="my-1">
               <Col sm={4}>
-                {/* <span style={{fontSize:"14px"}}>Delivery addres:</span> */}
                 Delivery address:
               </Col>
               <Col sm={8}>
@@ -76,17 +75,14 @@ const ShopCartModal = (props) => {
               <Col sm={8}>
                 <Dropdown block>
                   <Dropdown.Toggle block size="sm">
-                    As soon as possible
+                    {props.deliveryTime.name}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">As soon as possible</Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Item href="#/action-2">1:00</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">1:30</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">2:00</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">2:30</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">3:00</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">3:30</Dropdown.Item>
+                    {/* <Dropdown.Item href="#/action-1">As soon as possible</Dropdown.Item>
+                    <Dropdown.Divider /> */}
+                    {props.deliveryTimeOptions.map(time => {
+                      return <Dropdown.Item onClick={() => props.setDeliveryTime(time)}>{time.name}</Dropdown.Item>
+                    })}
                   </Dropdown.Menu>
                 </Dropdown>
               </Col>
@@ -97,16 +93,15 @@ const ShopCartModal = (props) => {
                 Payment method:
               </Col>
               <Col sm={8}>
-              <ButtonGroup toggle className="btn-block" size="sm">
-                  {paymentMethods.map((radio, idx) => (
+                <ButtonGroup toggle className="btn-block" size="sm">
+                  {props.paymentMethods.map((radio, idx) => (
                     <ToggleButton
                       key={idx}
                       type="radio"
                       variant="outline-primary"
-                      name="radio"
-                      value={radio.value}
-                      checked={paymentMethodRadioValue === radio.value}
-                      onChange={(e) => setPaymentMethodRadioValue(e.currentTarget.value)}
+                      value={radio.id}
+                      checked={props.paymentMethod.id === radio.id}
+                      onChange={() => props.setPaymentMethod(radio)}
                     >
                       {radio.name}
                     </ToggleButton>
@@ -115,9 +110,12 @@ const ShopCartModal = (props) => {
               </Col>
             </Row>
 
-            <Row>
-              <Col>
-                <Form.Control placeholder="Order notes"/>
+            <Row className="my-1">
+              <Col sm={4}>
+                Order notes:
+              </Col>
+              <Col sm={8}>
+                <Form.Control as="textarea" rows={2} placeholder="e.g. without onion, please" size="sm"/>
               </Col>
             </Row>
 
