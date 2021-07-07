@@ -6,7 +6,7 @@ import { ButtonGroup } from 'react-bootstrap';
 import { ToggleButton } from 'react-bootstrap';
 import { ToggleButtonGroup } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
-import { DropdownButton } from 'react-bootstrap';
+import { InputGroup, FormControl } from 'react-bootstrap';
 import { Dropdown } from 'react-bootstrap';
 // import { MenuItem } from 'react-bootstrap';
 import { Container, Row, Col} from 'react-bootstrap';
@@ -68,6 +68,22 @@ const ShopCartModal = (props) => {
               </Col>
             </Row>
 
+            <Row className="my-1" hidden>
+              <Col sm={4}>
+                Phone number:
+              </Col>
+              <Col sm={8}>
+                <input type="tel" id="phone" name="phone"
+                       pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
+                       required/>
+                {/* <InputGroup size="sm">
+                  <InputGroup.Text size="sm">+48</InputGroup.Text>
+                  <FormControl id="inlineFormInputGroupUsername" placeholder="Username" />
+                </InputGroup> */}
+                {/* <Form.Control variant="outline-warning" placeholder="555-444-333" size="sm"/> */}
+              </Col>
+            </Row>
+
             <Row className="my-1">
               <Col sm={4}>
                 Delivery time:
@@ -123,7 +139,7 @@ const ShopCartModal = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide} variant="light">Back to menu</Button>
-          <Button onClick={props.onHide} variant="success">Make order</Button>
+          <Button onClick={props.sendOrder} variant="success">Make order</Button>
         </Modal.Footer>
       </Modal>
     );
