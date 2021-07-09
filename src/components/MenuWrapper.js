@@ -1,5 +1,7 @@
 import React, { useEffect, useState, forceUpdate } from "react";
 
+// import { Redirect } from "react-router-dom";
+
 import { Button } from 'react-bootstrap';
 
 import RestaurantHeader from './menu/RestaurantHeader';
@@ -73,42 +75,38 @@ const MenuWrapper = (props) => {
 
   const sendOrder = () => {
     var data = {
-      // "orderedTime": Date.now,
-      "dishes": dishes,
+      "orderedTime": Date(Date.now()),
+      "dishes": dishes.filter(d => d.amount > 0),
       "address": address,
-      // "phoneNumber": phoneNumber,
+      "phoneNumber": phoneNumber,
       "deliveryTime": deliveryTime,
       "paymentMethod": paymentMethod,
-      // "orderNote": orderNote,
+      "orderNote": orderNote,
    }
-   console.log(JSON.stringify(data))
 
-   var data2 = {
-     "latitude":1.1,
-     "longitude":2.2
-   }
-   console.log(data2)
-   console.log(JSON.stringify(data2))
-
-   fetch("https://localhost:44313/api/Mock", {
+    fetch("https://localhost:44313/api/Mock", {
       method: "POST",
+      redirect: 'follow',
       // mode: "no-cors", // do not use - it causes bad request 415
       headers: {
         'Content-Type': 'application/json',
-        'Accept': '*/*'
+        'Accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
       },
-      // body:  JSON.stringify(data),
       body: JSON.stringify(data)
-   })
-   .then(function(response){ 
-    return console.log(response);   
-   })
-  //  .then(function(response){ 
-  //   return response.json();   
-  //  })
-   .then(function(data){ 
-   console.log(data)
-   });
+    })
+    .then(response => {
+      console.log(response.headers);
+      console.log(response);
+      return response.json();
+    })
+    .then(data => {
+      console.log('Success! Order GUID:', data);
+      // return <Redirect to="/order" />
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
   }
 
 
